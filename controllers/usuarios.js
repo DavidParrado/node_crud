@@ -51,22 +51,8 @@ const crearUsuario = async( req = request, res = response ) => {
 const actualizarUsuario = async( req = request, res = response ) => {
     
     const { id } = req.params;
-    const { email, password, estado, ...resto }  = req.body;
+    const { password, estado, ...resto }  = req.body;
     
-    if( email ) {
-
-        if( !email.match( re ) ) { 
-            return res.json({ msg: 'El correo no es válido'})
-        }
-        const existeEmail = await Usuario.findOne({ email });
-        if( existeEmail ) { 
-            return res.json({ error: `Ya existe un usuario con el correo ${ email }`});
-        }
-        const re = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
-    
-
-        resto.email = email;
-    } 
 
     if( password ) { 
         const salt = bcryptjs.genSaltSync(10);
