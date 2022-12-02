@@ -3,10 +3,11 @@ const Usuario = require('../models/usuarios');
 const bcryptjs = require('bcryptjs');
 
 const obtenerUsuarios = async( req = request, res = response ) => {
-    const { limite = 5,  } = req.query;
+    const { limite = 5} = req.query;
 
     const usuarios = await Usuario.find()
                     .limit( limite )
+
            
     res.json( usuarios );
 };
@@ -50,11 +51,12 @@ const crearUsuario = async( req = request, res = response ) => {
 
 const actualizarUsuario = async( req = request, res = response ) => {
     
-    const { id } = req.params;
+    const { id, password: oldPassword } = req.usuario;
     const { password, estado, ...resto }  = req.body;
     
+    
 
-    if( password ) { 
+    if( password && oldPassword !== password ) { 
         const salt = bcryptjs.genSaltSync(10);
         resto.password = bcryptjs.hashSync( password, salt );    
     }

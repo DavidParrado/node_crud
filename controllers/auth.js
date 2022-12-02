@@ -17,14 +17,14 @@ const autenticarUsuario = async(req, res) => {
         return res.json({ msg: 'El correo o la contraseña estan mal'})
     };
     
-    const payload = { id: usuario.id };
+    const payload = { uid: usuario.id };
 
     const token = jwt.sign( payload, process.env.SECRETKEY, { 
         expiresIn: '4h'
     });
     
     res.json({ 
-        msg: 'Lograste pasar la validacion toma tu token', 
+        usuario,
         token
     });
 }
