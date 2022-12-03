@@ -1,0 +1,189 @@
+{
+	"info": {
+		"_postman_id": "33dfc80e-28f2-4094-bfe4-510398ed9b6e",
+		"name": "node-test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23744622"
+	},
+	"item": [
+		{
+			"name": "CreateUser",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"Juan\",\r\n    \"lastname\": \"Grimaldo\",\r\n    \"email\": \"Juan@gmail.com\",\r\n    \"password\": \"Juan1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/usuarios",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"usuarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read Users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/usuarios?limite=25&email=juandparrado04@gmail.com&order=name&by=asc",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"usuarios"
+					],
+					"query": [
+						{
+							"key": "limite",
+							"value": "25"
+						},
+						{
+							"key": "email",
+							"value": "juandparrado04@gmail.com"
+						},
+						{
+							"key": "order",
+							"value": "name"
+						},
+						{
+							"key": "by",
+							"value": "asc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update User",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2Mzg5NzBhZjU4NGIwNDRiNThjOGI3ZDIiLCJpYXQiOjE2Njk5NTE3MTgsImV4cCI6MTY2OTk2NjExOH0.RAbv3qZ16RQyk_h_HGDqLwIsnNY8N-NBv9LX1XuQnro",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"David\",\r\n    \"lastname\": \"Parrado\",\r\n    \"email\": \"david@gmail.com\",\r\n    \"password\": \"David#1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/usuarios/638970af584b044b58c8b7d2",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"usuarios",
+						"638970af584b044b58c8b7d2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete User",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MzhhMzVkZmFjMzllNDQ5N2E1ODFmOWUiLCJpYXQiOjE2NzAwMTg4MTEsImV4cCI6MTY3MDAzMzIxMX0.fDeViYFLF5Rm8cn9Hi_2lioj0ru2JVrglQnKoyPnp60",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/api/usuarios/638a35dfac39e4497a581f9e",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"usuarios",
+						"638a35dfac39e4497a581f9e"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Autenticar Usuario",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"juan@gmail.com\",\r\n    \"password\": \"Grimaldo1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/auth/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read User By Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/usuarios/638970af584b044b58c8b7d2",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"usuarios",
+						"638970af584b044b58c8b7d2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

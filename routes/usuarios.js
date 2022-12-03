@@ -17,7 +17,7 @@ router.get('/:id', [
     validarCampos
 ], obtenerUsuario);
 
-router.post('/', crearUsuario)
+router.post('/', crearUsuario);
 
 router.put('/:id',[
     validarId,

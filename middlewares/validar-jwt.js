@@ -10,7 +10,8 @@ const validarJwt = async( req, res, next ) => {
     }
 
     const usuario = await Usuario.findById( id );
-    const { uid } = jwt.verify( token, process.env.SECRETKEY );
+    const { uid } = jwt.verify( token, process.env.SECRETKEY, ( err, decode ) => decode !== undefined ?  decode : err );
+
 
     if( usuario.id !== uid ) { 
         return res.json({ 

@@ -3,11 +3,46 @@ const Usuario = require('../models/usuarios');
 const bcryptjs = require('bcryptjs');
 
 const obtenerUsuarios = async( req = request, res = response ) => {
-    const { limite = 5} = req.query;
 
-    const usuarios = await Usuario.find()
-                    .limit( limite )
+    console.log( req )
+    const { limite = 5, name, email, lastname, order, by } = req.query;
 
+    const orderBy = {};
+    const ordenPermitido = ['asc','desc', 'ascending', 'descending', 1, -1 ];
+
+    if( order && ordenPermitido.includes( by ) ) { 
+
+        if( order === 'name' ) { orderBy.name = by } 
+        if( order === 'email' ) { orderBy.email = by } 
+        if( order === 'lastname' ) { orderBy.lastname = by } 
+
+    }
+
+    const field = {};
+
+    if( name ) { 
+        const termino =  new RegExp(name,'i');
+        field.name = termino;
+    }
+
+    if( lastname ) { 
+        const termino =  new RegExp(lastname,'i');
+        field.lastname = termino;
+    }
+
+    if( email ) { 
+        const termino =  new RegExp(email,'i');
+        field.email = termino;
+    }
+
+
+    const usuarios = await Usuario.find( field ) 
+                        .limit( limite )
+                        .sort( orderBy )  
+
+    if( usuarios.length === 0 ) { 
+        return res.json({ msg: 'No encontramos usuarios con esas caracteristicas'})
+    }
            
     res.json( usuarios );
 };
@@ -73,10 +108,13 @@ const actualizarUsuario = async( req = request, res = response ) => {
 };
 
 const borrarUsuario = async( req = request, res = response ) => {
-    
-    const { id } = req.params; 
 
-    const usuario = await Usuario.findByIdAndUpdate( id, { estado: false });
+    if( !req.usuario.estado ) {
+        return res.json({ msg: 'El id a eliminar no existe en la base de datos'})
+    }
+    const id = req.usuario.id; 
+
+    const usuario = await Usuario.findByIdAndUpdate( id, { estado: false }, { new: true });
     if( !usuario ) { 
         return res.json({ msg: 'Usuario no encontrado'})
     }
